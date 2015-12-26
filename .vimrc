@@ -7,19 +7,20 @@ filetype plugin on         " required
 colorscheme solarized
 set background=dark
 set nocompatible              " be iMproved, required
-set clipboard=unnamedplus
+set clipboard=unnamed
 set modifiable
 set autoread
 set mouse=a
 set t_Co=256
 set shellpipe=>
 set modelines=0
-set shiftwidth=2
 set ttyscroll=10
+set expandtab
 set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set nowrap
 set number
-set expandtab
 set nowritebackup
 set noswapfile
 set nobackup
@@ -121,7 +122,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rake'
-Plugin 'Lokaltog/vim-powerline'
+"Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
@@ -136,6 +137,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
+" Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 call vundle#end()            " required
 
 """""""""""""" airline """"""""""""""
@@ -151,8 +153,11 @@ let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
 
 """"""""""""Vim Indent Guides""""""""""""""""
 let g:indentLine_color_term = 239
-let g:indentLine_char = '︙'
+let g:indentLine_char = 'ː' "┆˚:˸
 let g:indentLine_enabled = 1
 
-""""""""""""JSX"""""""""""""""""""""
+"""""""""""""JSX"""""""""""""""""""""
 let g:jsx_ext_required = 0
+
+"""""""""vim colors colarized"""""""""
+call togglebg#map("<F5>")
