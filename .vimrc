@@ -29,6 +29,7 @@ set smartcase
 set splitbelow
 set splitright
 set incsearch  " incremental searching
+set cursorline
 
 nnoremap <leader>; :
 nnoremap <leader>w :w<CR>
@@ -39,6 +40,10 @@ nnoremap <leader>s <C-W>s
 nnoremap <leader>r <C-R>
 nnoremap <leader>h :set hlsearch!<CR>
 nmap <leader>n :NERDTreeToggle<CR>
+
+" don't jump multiple lines for a long line
+nmap j gj
+nmap k gk
 
 " cycle through buffers
 :nnoremap <Tab> :bnext<CR>
@@ -62,6 +67,11 @@ autocmd VimResized * :wincmd =
 " zoom a vim pane, <C-w>= to re-balance
 nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nnoremap <leader>= :wincmd =<cr>
+
+" reload vimrc
+nmap <leader>so :source $MYVIMRC<cr>
+
+
 
 augroup vimrcEx
   autocmd!
@@ -122,7 +132,11 @@ Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rake'
-"Plugin 'Lokaltog/vim-powerline'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
+Plugin 'thoughtbot/vim-rspec'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
@@ -137,7 +151,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
-" Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 call vundle#end()            " required
 
 """""""""""""" airline """"""""""""""
