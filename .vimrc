@@ -1,6 +1,6 @@
 let mapleader=";"
 syntax on
-filetype on                  " required
+filetype off                  " required
 filetype indent on
 filetype plugin on         " required
 
@@ -29,10 +29,11 @@ set smartcase
 set splitbelow
 set splitright
 set incsearch  " incremental searching
-if has("gui_running")
-  set cursorline " highlight current line
-endif
-" set cursorcolumn " highlight current column
+set ttyfast " improves smoothness of redrawing
+set lazyredraw " use buffer screen updates
+" if has("gui")
+"   set cursorline " highlight current line
+" endif
 
 nnoremap <leader>w :w<CR>
 nnoremap <leader>v <C-W>v
@@ -71,7 +72,13 @@ nnoremap <leader>= :wincmd =<cr>
 " reload vimrc
 nmap <leader>so :source $MYVIMRC<cr>
 
+" paste on a new line
+nmap <leader>p :pu<CR>
 
+
+" http://stackoverflow.com/questions/4465095/vim-delete-buffer-without-losing-the-split-window
+" kills current buffer without closing split screen
+command BD execute "bp|bd #"
 
 augroup vimrcEx
   autocmd!
@@ -131,26 +138,52 @@ Plugin 'rking/ag.vim'
 Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'slim-template/vim-slim'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
-" Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'schickling/vim-bufonly'
+Plugin 'rust-lang/rust.vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'rizzatti/dash.vim'
+Plugin 'jplaut/vim-arduino-ino'
+Plugin 'FelikZ/ctrlp-py-matcher'
+" Plugin 'jeffkreeftmeijer/vim-numbertoggle' huge hit on rendering performance
 call vundle#end()            " required
+syntax enable
+filetype on    " required
+filetype plugin indent on
+
 
 """""""""""""" airline """"""""""""""
 let g:airline#extensions#tabline#enabled = 1  " Enable the list of buffers Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:molokai_original = 1
+let currentDirectory = toupper(fnamemodify(getcwd(), ':t'))
+let g:airline_section_b = currentDirectory " change default git branch section to show app name
+" let g:airline_section_d = currentDirectory " change default git branch section to show app name
 
 """""""""""""NerdTree""""""""""""""""
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * wincmd p
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
+let NERDTreeShowHidden=1
+let g:NERDTreeWinSize=45
+let g:NERDTreeAutoDeleteBuffer=1
+let g:NERDTreeDirArrowExpandable = '✘'  "*
+let g:NERDTreeDirArrowCollapsible = '✔' "|⚡
+let NERDTreeIgnore = ['\.git*','\.DS_Store$']
+
+
+autocmd StdinReadPre * let s:std_in=1
+"
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif " open up nerdtree on boot
 
 """"""""""""Vim Indent Guides""""""""""""""""
 let g:indentLine_color_term = 239
@@ -158,7 +191,20 @@ let g:indentLine_char = 'ː' "┆˚:˸
 let g:indentLine_enabled = 1
 
 """""""""""""JSX"""""""""""""""""""""
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 0 " allow jsx in js files
+au BufNewFile,BufRead *.jsx set filetype=javascript.jsx " set filetype to jsx for files with fsx extension
 
 """""""""vim colors colarized"""""""""
 call togglebg#map("<F5>")
+
+
+if has("gui_running")
+  set noballooneval " disable mouse hover popup, syntastic setup
+endif
+
+" CtrlP config
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' } " ctrlP performance improvement
+set wildignore+=*/node_modules/*,*/tmp/*,*/bin/*,*/migrate/*,*/fonts/* " ignore files
+
+" indentLine
+" let g:indentLine_conceallevel = 1 " disable concealing json quotations
