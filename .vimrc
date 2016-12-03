@@ -4,8 +4,8 @@ filetype off                  " required
 filetype indent on
 filetype plugin on         " required
 
-colorscheme solarized
 set background=dark
+colorscheme solarized
 set nocompatible              " be iMproved, required
 set clipboard=unnamed
 set modifiable
@@ -32,7 +32,7 @@ set incsearch  " incremental searching
 set ttyfast " improves smoothness of redrawing
 set lazyredraw " use buffer screen updates
 " if has("gui")
-"   set cursorline " highlight current line
+"set cursorline " highlight current line
 " endif
 
 nnoremap <leader>w :w<CR>
@@ -78,7 +78,7 @@ nmap <leader>p :pu<CR>
 
 " http://stackoverflow.com/questions/4465095/vim-delete-buffer-without-losing-the-split-window
 " kills current buffer without closing split screen
-command BD execute "bp|bd #"
+" command BD execute "bp|bd #"
 
 augroup vimrcEx
   autocmd!
@@ -147,16 +147,20 @@ Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
-Plugin 'schickling/vim-bufonly'
 Plugin 'rust-lang/rust.vim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'rizzatti/dash.vim'
 Plugin 'jplaut/vim-arduino-ino'
 Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'kchmck/vim-coffee-script'
 " Plugin 'jeffkreeftmeijer/vim-numbertoggle' huge hit on rendering performance
+Plugin 'nathanaelkane/vim-command-w'
+Plugin 'qpkorr/vim-bufkill'
+Plugin 'metakirby5/codi.vim'
+Plugin 'kristijanhusak/vim-hybrid-material'
 call vundle#end()            " required
 syntax enable
-filetype on    " required
+filetype off    " required
 filetype plugin indent on
 
 
@@ -168,17 +172,28 @@ let currentDirectory = toupper(fnamemodify(getcwd(), ':t'))
 let g:airline_section_b = currentDirectory " change default git branch section to show app name
 " let g:airline_section_d = currentDirectory " change default git branch section to show app name
 
-"""""""""""""NerdTree""""""""""""""""
+"
+"
+"NerdTree
+"
+"
+
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * wincmd p
 let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
+let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg', '\.git*','\.DS_Store$']
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
 let g:NERDTreeDirArrowExpandable = '✘'  "*
 let g:NERDTreeDirArrowCollapsible = '✔' "|⚡
-let NERDTreeIgnore = ['\.git*','\.DS_Store$']
+let g:NERDTreeWinSize=35
+highlight NERDTreeOpenable ctermfg=Red guifg=#D33F3F " #d7d700
+highlight NERDTreeClosable ctermfg=Red guifg=#D33F3F
+
+"
+"
+"
 
 
 autocmd StdinReadPre * let s:std_in=1
@@ -208,3 +223,5 @@ set wildignore+=*/node_modules/*,*/tmp/*,*/bin/*,*/migrate/*,*/fonts/* " ignore 
 
 " indentLine
 " let g:indentLine_conceallevel = 1 " disable concealing json quotations
+"
+let g:enable_bold_font = 1
