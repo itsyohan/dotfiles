@@ -1,0 +1,30 @@
+#!/bin/zsh
+
+dotfiles_dir=~/dotfiles          # dotfiles directory
+dotfiles_old_dir=~/dotfiles_old  # old dotfiles backup directory
+nvim_dir=~/.config/nvim
+atom_dir=~/.atom
+# list of files/folders to symlink in homedir
+files=('.tmux.conf' '.vimrc' '.atom/keymap.cson')
+
+# create dotfiles_old in homedir
+echo "Creating $dotfiles_old_dir for backup of any existing dotfiles"
+mkdir -p $dotfiles_old_dir
+
+echo "Creating neovim config directory if it doesn't exist already"
+mkdir -p $nvim_dir
+
+echo "Creating atom config directory if it doesn't exist already"
+mkdir -p $atom_dir
+
+echo "Changing to the $dotfiles_dir directory"
+cd $dotfiles_dir
+
+echo "Moving any existing dotfiles to $dotfiles_old_dir"
+for file in $files; do
+    echo "file: $file"
+    mv ~/$file ~/dotfiles_old/
+
+    echo "Creating symlink to $file in home directory."
+    ln -s ~/$dotfiles_dir/$file ~/$file
+done
