@@ -1,25 +1,11 @@
 let mapleader = ";"
 
-set incsearch           " incremental searching
-"set title
+set smartcase           " Case insensitive search when text contains all lower case, case sensitive when they're not. Needs ignorecase to be set
+set ignorecase          " Case insensitive search
 colorscheme solarized
 set termguicolors
 set background=dark
-
-" fix clipboard pasting issue
-" https://github.com/neovim/neovim/issues/583
-function! ClipboardYank()
-  call system('pbcopy', @@)
-endfunction
-
-function! ClipboardPaste()
-  let @@ = system('pbpaste')
-endfunction
-
-vnoremap <silent> y y:call ClipboardYank()<cr>
-vnoremap <silent> d d:call ClipboardYank()<cr>
-nnoremap <silent> p :call ClipboardPaste()<cr>p
-""
+set clipboard+=unnamedplus " yank to clipboard
 
 " configs from http://nerditya.com/code/guide-to-neovim/
 set showcmd             " Show (partial) command in status line.
@@ -54,7 +40,6 @@ nnoremap <leader>h :set hlsearch!<CR>
 
 "controlP to fuzzy search
 nnoremap <C-p> :FZF<CR>
-""
 
 " don't jump multiple lines for a long line
 nmap j gj
@@ -113,7 +98,6 @@ let g:indentLine_char = 'ː' "┆˚:˸
 let g:indentLine_enabled = 1
 "" Indent lines
 
-
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -121,7 +105,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'rking/ag.vim'
   Plug 'christoomey/vim-tmux-navigator'
-  "Plug 'neomake/neomake'
+  Plug 'neomake/neomake'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'altercation/vim-colors-solarized'
@@ -130,4 +114,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
+
+call deoplete#enable()
+
