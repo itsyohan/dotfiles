@@ -159,7 +159,6 @@ Plugin 'jplaut/vim-arduino-ino'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'nathanaelkane/vim-command-w'
 Plugin 'qpkorr/vim-bufkill'
-Plugin 'metakirby5/codi.vim'
 call vundle#end()            " required
 
 "" airline
