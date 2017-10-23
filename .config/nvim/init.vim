@@ -2,8 +2,8 @@ let mapleader = ";"
 
 set smartcase           " Case insensitive search when text contains all lower case, case sensitive when they're not. Needs ignorecase to be set
 set ignorecase          " Case insensitive search
-colorscheme solarized
-set termguicolors
+"set termguicolors " this fucks up colors in tmux
+colorscheme NeoSolarized
 set background=dark
 set clipboard+=unnamedplus " yank to clipboard
 
@@ -98,6 +98,9 @@ let g:indentLine_char = 'ː' "┆˚:˸
 let g:indentLine_enabled = 1
 "" Indent lines
 
+let g:deoplete#enable_at_startup = 1 " Use deoplete.
+let g:vim_json_syntax_conceal = 0 " show quotes in json files
+
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -115,7 +118,5 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'elzr/vim-json'
 call plug#end()
-
-call deoplete#enable()
-
