@@ -4,24 +4,37 @@ dotfiles_dir=~/dotfiles    # dotfiles directory
 backup_dir=~/dotfiles_old  # old dotfiles backup directory
 nvim_dir=~/.config/nvim
 atom_dir=~/.atom
+zshinit_dir=~/.zshinit
+
 # list of files/folders to symlink in homedir
-files=('.zshrc' '.tmux.conf' '.vimrc' '.atom/keymap.cson' '.config/nvim/init.vim')
+files=('.zshrc' '.tmux.conf' '.vimrc' '.atom/keymap.cson' '.config/nvim/init.vim' '.zshinit/nvm_init.sh')
 
-# create dotfiles_old in homedir
-echo "Creating $backup_dir for backup of any existing dotfiles"
-mkdir -p $backup_dir
+if [ ! -d "$backup_dir" ]; then
+  echo "Creating $backup_dir for backup of any existing dotfiles"
+  mkdir -p $backup_dir
+fi
 
-echo "Creating neovim config directory if it doesn't exist already"
-mkdir -p $nvim_dir
+if [ ! -d "$nvim_dir" ]; then
+  echo "Creating neovim config directory"
+  mkdir -p $nvim_dir
+fi
 
-echo "Creating atom config directory if it doesn't exist already"
-mkdir -p $atom_dir
+if [ ! -d "$atom_dir" ]; then
+  echo "Creating atom config directory"
+  mkdir -p $atom_dir
+fi
 
-echo "Moving any existing dotfiles to $backup_dir"
+if [ ! -d "$zshinit_dir" ]; then
+  echo "Creating zshinit config directory"
+  mkdir -p $zshinit_dir
+fi
+
 for file in $files; do
-    echo "file: $file"
+  if [ -e "$file" ]; then
+    echo "Moving existing file $file to backup directory"
     mv ~/$file ~/dotfiles_old/
+  fi
 
-    echo "Creating symlink to $file in home directory."
-    ln -s $dotfiles_dir/$file ~/$file
+  echo "Creating symlink to $file in home directory."
+  ln -s $dotfiles_dir/$file ~/$file
 done
