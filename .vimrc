@@ -130,7 +130,17 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim' " fuzzy searching
+
+" when running MacVim use ctrlp for fuzzy searching
+" when in terminal use FZF
+" FZF doesn't work with MacVim
+if has("gui_running")
+  Plugin 'kien/ctrlp.vim'
+else
+  Plugin 'junegunn/fzf.vim'
+  Plugin 'junegunn/fzf'
+endif
+
 Plugin 'rking/ag.vim' " silver searcher. replaces grep
 Plugin 'slim-template/vim-slim'
 Plugin 'vim-airline/vim-airline'
@@ -138,6 +148,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'elzr/vim-json'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
@@ -148,7 +159,6 @@ Plugin 'jplaut/vim-arduino-ino'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'nathanaelkane/vim-command-w'
 Plugin 'qpkorr/vim-bufkill'
-Plugin 'metakirby5/codi.vim'
 call vundle#end()            " required
 
 "" airline
@@ -181,6 +191,8 @@ let g:indentLine_enabled = 1
 let g:jsx_ext_required = 0 " allow jsx in js files
 au BufNewFile,BufRead *.jsx set filetype=javascript.jsx " set filetype to jsx for files with fsx extension
 
+let g:vim_json_syntax_conceal = 0 " show quotes
+
 "" toggle solarized light/dark
 call togglebg#map("<F5>")
 
@@ -188,19 +200,22 @@ call togglebg#map("<F5>")
 if has("gui_running")
   " disable mouse hover popup, syntastic setup
   set noballooneval
+
+  " ctrlp options
+  " g:ctrlp_user_command option option conflicts with g:ctrlp_custom_ignore
+  let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+        \ --ignore .git
+        \ --ignore .svn
+        \ --ignore .hg
+        \ --ignore .DS_Store
+        \ --ignore "**/*.pyc"
+        \ --ignore "db/migrate"
+        \ -g ""'
+  " use vim wildignore instead
+  set wildignore+=*/node_modules/*,*/tmp/*,*/bin/*,*db/migrate/*,*/fonts/*,*app/images/*
+else
+  "controlP to fuzzy search
+  nnoremap <C-p> :FZF<CR>
 endif
 
-"" ctrlp options
-" g:ctrlp_user_command option option conflicts with g:ctrlp_custom_ignore
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ --ignore "db/migrate"
-      \ -g ""'
-
-" use vim wildignore instead
-set wildignore+=*/node_modules/*,*/tmp/*,*/bin/*,*db/migrate/*,*/fonts/*,*app/images/*
