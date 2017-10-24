@@ -1,0 +1,10 @@
+node_modules
+db/migrate
+assets
+images
+*.png
+*.jpg
+*.svg
+*.woff
+*.eot
+*.ttf
