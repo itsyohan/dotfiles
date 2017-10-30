@@ -1,4 +1,4 @@
-export EDITOR="vim"
+export EDITOR="nvim"
 export USER=$(whoami)
 
 # PATH
@@ -22,6 +22,7 @@ export UPDATE_ZSH_DAYS=30
 source $ZSH/oh-my-zsh.sh
 
 # Aliases
+alias vim=$EDITOR
 alias zshrc="$EDITOR ~/.zshrc"
 alias typora="open -a Typora"
 alias rake="bundle exec rake"
@@ -46,9 +47,6 @@ alias ag='ag --path-to-ignore ~/.ignore'
 #
 # status
 # pg_ctl -D /usr/local/var/postgres status
-
-# Python environment manager
-source /usr/local/bin/virtualenvwrapper.sh
 
 export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

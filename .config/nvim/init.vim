@@ -6,6 +6,9 @@ set ignorecase          " Case insensitive search
 colorscheme NeoSolarized
 set background=dark
 set clipboard+=unnamedplus " yank to clipboard
+" auto reload file when it changes from outside
+set autoread
+au FocusGained * :checktime
 
 " configs from http://nerditya.com/code/guide-to-neovim/
 set showcmd             " Show (partial) command in status line.
@@ -120,3 +123,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'elzr/vim-json'
 call plug#end()
+
+"" toggle solarized light/dark
+call togglebg#map("<F5>")
+
