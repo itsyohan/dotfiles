@@ -41,6 +41,9 @@ alias tnew="tmux new -s"
 alias tattach="tmux attach -t"
 alias tkill="tmux kill-session -t"
 alias tlist="tmux list-sessions"
+alias rails="bundle exec rails"
+alias rspec="bundle exec rspec"
+alias sidekiq="bundle exec sidekiq"
 
 # PG
 # start
