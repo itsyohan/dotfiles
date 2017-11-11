@@ -37,16 +37,20 @@ alias redisstop='sudo launchctl stop io.redis.redis-server'
 alias rabbitstop='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist'
 alias rabbitstart='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist'
 alias ag='ag --path-to-ignore ~/.ignore'
+alias tnew="tmux new -s"
+alias tattach="tmux attach -t"
+alias tkill="tmux kill-session -t"
+alias tlist="tmux list-sessions"
 
 # PG
 # start
-# pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+alias pg_start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 #
 # stop
-# pg_ctl -D /usr/local/var/postgres stop -s -m fast
+alias pg_stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 #
 # status
-# pg_ctl -D /usr/local/var/postgres status
+alias pg_status="pg_ctl -D /usr/local/var/postgres status"
 
 export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

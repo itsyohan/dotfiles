@@ -28,6 +28,8 @@ set nojoinspaces        " Prevents inserting two spaces after punctuation on a j
 set nostartofline       " Do not jump to first character with page commands.
 ""
 
+set mouse=a             " Enable mouse interaction
+
 " what i am used to
 nnoremap <leader>w :w<CR>
 nnoremap <leader>v <C-W>v
