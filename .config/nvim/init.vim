@@ -106,6 +106,11 @@ let g:indentLine_enabled = 1
 let g:deoplete#enable_at_startup = 1 " Use deoplete.
 let g:vim_json_syntax_conceal = 0 " show quotes in json files
 
+" override default ALE error signs
+let g:ale_sign_error = '🔥'
+let g:ale_sign_warning = '🤔'
+
+
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -113,7 +118,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'rking/ag.vim'
   Plug 'christoomey/vim-tmux-navigator'
-  Plug 'neomake/neomake'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'altercation/vim-colors-solarized'
@@ -124,6 +128,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mxw/vim-jsx'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'elzr/vim-json'
+  Plug 'w0rp/ale'
 call plug#end()
 
 "" toggle solarized light/dark
