@@ -2,6 +2,7 @@ let mapleader = ";"
 
 set smartcase           " Case insensitive search when text contains all lower case, case sensitive when they're not. Needs ignorecase to be set
 set ignorecase          " Case insensitive search
+set wildignorecase      " Case is ignored when completing file names and directories
 "set termguicolors " this fucks up colors in tmux
 colorscheme NeoSolarized
 set background=dark
@@ -55,6 +56,9 @@ nmap k gk
 nmap <leader>p :pu<CR>
 ""
 
+" map :Noh to :noh. I do this way too often
+cnoreabbrev Noh noh
+
 " pane navigation
 nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
@@ -94,7 +98,7 @@ let g:airline#extensions#tabline#enabled = 1  " Enable the list of buffers Show 
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:molokai_original = 1
 let currentDirectory = toupper(fnamemodify(getcwd(), ':t'))
-let g:airline_section_b = currentDirectory " change default git branch section to show app name
+let g:airline_section_y = currentDirectory " change default git branch section to show app name
 "" airline
 
 " Indent lines
@@ -132,5 +136,5 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 "" toggle solarized light/dark
-call togglebg#map("<F5>")
+call togglebg#map("<leader>5")
 
