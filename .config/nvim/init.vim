@@ -107,8 +107,10 @@ let g:indentLine_char = 'ː' "┆˚:˸
 let g:indentLine_enabled = 1
 "" Indent lines
 
-let g:deoplete#enable_at_startup = 1 " Use deoplete.
-let g:vim_json_syntax_conceal = 0 " show quotes in json files
+let g:deoplete#enable_at_startup = 1                       " Use deoplete.
+let g:vim_json_syntax_conceal = 0                          " Show quotes in json files
+inoremap <silent><expr> <Tab>
+    \ pumvisible() ? "\<C-n>" : deoplete#manual_complete() " Tab to complete
 
 " override default ALE error signs
 let g:ale_sign_error = '🔥'
