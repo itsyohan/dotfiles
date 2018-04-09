@@ -2,7 +2,7 @@ export EDITOR="nvim"
 export USER=$(whoami)
 
 # PATH
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
 export PATH=".git/safe/../../bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -44,6 +44,8 @@ alias tlist="tmux list-sessions"
 alias rails="bundle exec rails"
 alias rspec="bundle exec rspec"
 alias sidekiq="bundle exec sidekiq"
+alias nuke_merged_branches="git branch --merged | egrep -v '(^\*|master|develop|staging)' | xargs git branch -d"
+
 
 # PG
 # start
