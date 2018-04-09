@@ -26,14 +26,22 @@ set linespace=0         " Set line-spacing to minimum.
 set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
 set nostartofline       " Do not jump to first character with page commands.
 set mouse=a             " Enable mouse interaction
+set cursorline          " Highlight current line number
 
 " what i am used to
 nnoremap <leader>w :w<CR>
 nnoremap <leader>v <C-W>v
 nnoremap <leader>s <C-W>s
 nnoremap <leader>r <C-R>
-nnoremap <leader>h :set hlsearch!<CR>
-""
+
+" Toggle highlight
+" Use :noh over hlsearch! otherwise I have to toggle highlight to search next word
+nnoremap <leader>h :noh<CR>
+
+" Toggle line wrap
+nnoremap <leader>1 :set wrap!<CR>
+" Toggle current line highlight
+nnoremap <leader>2 :set cursorline!<CR>
 
 " cycle through buffers
 :nnoremap <Tab> :bnext<CR>
@@ -54,8 +62,6 @@ nmap <leader>p :pu<CR>
 
 " map :Noh to :noh. I do this way too often
 cnoreabbrev Noh noh
-
-call togglebg#map("<leader>5")             " toggle solarized light/dark
 
 """
 " Tmux
@@ -137,7 +143,6 @@ let g:ale_linters = {
 \   'ruby': [],
 \}                                         " Ignore linter errors
 
-
 """
 " Plugins
 """
@@ -158,5 +163,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-airline/vim-airline-themes'
   Plug 'altercation/vim-colors-solarized'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'slim-template/vim-slim'
+  Plug 'bclose', { 'dir': '~/.config/nvim/plugged/bclose' }
 call plug#end()
 
+call togglebg#map("<leader>5")             " Toggle solarized light/dark. Has to be called after plugin loaded
