@@ -17,7 +17,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'altercation/vim-colors-solarized'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'slim-template/vim-slim'
-  Plug 'bclose', { 'dir': '~/.config/nvim/plugged/bclose' }
+  Plug 'rbgrouleff/bclose.vim'
 call plug#end()
 
 
@@ -49,7 +49,6 @@ set linespace=0            " Set line-spacing to minimum.
 set nojoinspaces           " Prevents inserting two spaces after punctuation on a join (J)
 set nostartofline          " Do not jump to first character with page commands.
 set mouse=a                " Enable mouse interaction
-set cursorline             " Highlight current line number
 
 
 au FocusGained * :checktime
@@ -121,6 +120,9 @@ nnoremap <silent> <c-p>p :TmuxNavigatePrevious<cr>
 
 " bugfix for c-h
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+
+" Close buffer without closing open panes
+nnoremap <silent> <Leader>bd :Bclose<CR>
 
 let g:tmux_navigator_no_mappings = 1
 
