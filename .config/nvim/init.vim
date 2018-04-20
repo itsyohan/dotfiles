@@ -49,7 +49,7 @@ set linespace=0            " Set line-spacing to minimum.
 set nojoinspaces           " Prevents inserting two spaces after punctuation on a join (J)
 set nostartofline          " Do not jump to first character with page commands.
 set mouse=a                " Enable mouse interaction
-set cursorline             " Highlight current line number
+set re=1                   " Use older regex engine, which has better performance
 
 
 au FocusGained * :checktime
@@ -215,4 +215,3 @@ let g:ale_sign_warning = '🤔'
 let g:ale_linters = {
 \   'ruby': [],
 \}                                         " Ignore linter errors
-
