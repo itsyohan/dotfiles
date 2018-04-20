@@ -46,17 +46,6 @@ alias rspec="bundle exec rspec"
 alias sidekiq="bundle exec sidekiq"
 alias nuke_merged_branches="git branch --merged | egrep -v '(^\*|master|develop|staging)' | xargs git branch -d"
 
-
-# PG
-# start
-alias pg_start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-#
-# stop
-alias pg_stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-#
-# status
-alias pg_status="pg_ctl -D /usr/local/var/postgres status"
-
 export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
