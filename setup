@@ -3,11 +3,11 @@
 DOTFILES_DIR=~/dotfiles
 BACKUP_DIR=~/dotfiles_old  # old dotfiles backup directory
 NVIM_DIR=~/.config/nvim
-ATOM_DIR=~/.atom
+ONI_DIR=~/.config/nvim
 ZSHINIT_DIR=~/.zshinit
 
 # list of files/folders to symlink in homedir
-files=('.zshrc' '.tmux.conf' '.vimrc' '.atom/keymap.cson' '.config/nvim/init.vim' '.zshinit/nvm_init.sh' '.ignore')
+files=('.zshrc' '.tmux.conf' '.vimrc' '.config/nvim/init.vim' '.config/oni/config.js' '.zshinit/nvm_init.sh' '.ignore')
 
 if [ ! -d "$BACKUP_DIR" ]; then
   echo "Creating $BACKUP_DIR for backup of any existing dotfiles"
@@ -19,9 +19,9 @@ if [ ! -d "$NVIM_DIR" ]; then
   mkdir -p $NVIM_DIR
 fi
 
-if [ ! -d "$ATOM_DIR" ]; then
-  echo "Creating atom config directory"
-  mkdir -p $ATOM_DIR
+if [ ! -d "$ONI_DIR" ]; then
+  echo "Creating oni config directory"
+  mkdir -p $ONI_DIR
 fi
 
 if [ ! -d "$ZSHINIT_DIR" ]; then
