@@ -15,6 +15,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'rking/ag.vim'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'rbgrouleff/bclose.vim'
 
   if !exists("g:gui_oni")
     Plug 'vim-airline/vim-airline'
