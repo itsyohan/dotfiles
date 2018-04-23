@@ -27,6 +27,7 @@ call plug#end()
 
 let mapleader = ";"
 
+let $ONIRC = "~/.config/oni/config.js" " Set environment variable for oni config file for easy access
 
 colorscheme NeoSolarized
 
