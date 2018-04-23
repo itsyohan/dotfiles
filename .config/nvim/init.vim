@@ -1,4 +1,6 @@
 """ Plugins
+
+
 call plug#begin('~/.config/nvim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'Yggdroot/indentLine'
@@ -12,12 +14,13 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'rking/ag.vim'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'altercation/vim-colors-solarized'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'slim-template/vim-slim'
-  Plug 'bclose', { 'dir': '~/.config/nvim/plugged/bclose' }
+
+  if !exists("g:gui_oni")
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'altercation/vim-colors-solarized'
+  endif
 call plug#end()
 
 
@@ -51,6 +54,13 @@ set nostartofline          " Do not jump to first character with page commands.
 set mouse=a                " Enable mouse interaction
 set re=1                   " Use older regex engine, which has better performance
 
+if exists("g:gui_oni")
+  " Turn off statusbar, because it is externalized
+  set noshowmode
+  set noruler
+  set laststatus=0
+  set noshowcmd
+endif
 
 au FocusGained * :checktime
 
@@ -84,7 +94,9 @@ nnoremap <leader>2 :set cursorline!<CR>
 nnoremap <leader>3 :set relativenumber!<CR>
 
 " Toggle solarized light/dark. Has to be called after plugin loaded
-call togglebg#map("<leader>5")
+if !exists("g:gui_oni")
+  call togglebg#map("<leader>5")
+endif
 
 " Go to next buffer
 :nnoremap <Tab> :bnext<CR>
