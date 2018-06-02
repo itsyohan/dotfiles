@@ -1,0 +1,7 @@
+{
+    "git.ignoreMissingGitWarning": true,
+    "workbench.colorTheme": "Monokai",
+    "vim.cmdLineInitialColon": true,
+    "vim.hlsearch": true,
+    "vim.leader": ";",
+}

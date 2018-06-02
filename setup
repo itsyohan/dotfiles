@@ -1,45 +1,57 @@
 #!/bin/zsh
 
-DOTFILES_DIR=~/dotfiles
-BACKUP_DIR=~/dotfiles_old  # old dotfiles backup directory
-NVIM_DIR=~/.config/nvim
-ONI_DIR=~/.config/oni
-ZSHINIT_DIR=~/.zshinit
+DOTFILE_PATH=~/dotfiles
+BACKUP_PATH=~/dotfiles_old
+NVIM_PATH=~/.config/nvim
+ONI_PATH=~/.config/oni
+ZSHINIT_PATH=~/.zshinit
+VSCODE_PATH=~/Library/Application\ Support/Code/User
 
-# list of files/folders to symlink in homedir
-files=('.zshrc' '.tmux.conf' '.vimrc' '.config/nvim/init.vim' '.config/oni/config.js' '.zshinit/nvm_init.sh' '.ignore')
+DIRECTORIES_TO_CREATE=(
+  $BACKUP_PATH
+  $NVIM_PATH
+  $ONI_PATH
+  $ZSHINIT_PATH
+  $VSCODE_PATH
+)
 
-if [ ! -d "$BACKUP_DIR" ]; then
-  echo "Creating $BACKUP_DIR for backup of any existing dotfiles"
-  mkdir -p $BACKUP_DIR
-fi
+echo "Creating necessary directories if they don't exist already"
+for dir in $DIRECTORIES_TO_CREATE; do
+  if [ ! -d "$dir" ]; then
+    mkdir -p $dir
+    echo "Created $dir"
+  fi
+done
 
-if [ ! -d "$NVIM_DIR" ]; then
-  echo "Creating neovim config directory"
-  mkdir -p $NVIM_DIR
-fi
+# Map files under config directory to their symlink target path
+typeset -A FILE_PATHS
+FILE_PATHS=(
+  'zsh/zshrc' '.zshrc'
+  'tmux/tmux.conf' '.tmux.conf'
+  'vim/vimrc' '.vimrc'
+  'nvim/vimrc' '.config/nvim/init.vim'
+  'oni/config.js' '.config/oni/config.js'
+  'zsh/nvm_init.sh' '.zshinit/nvm_init.sh'
+  'ignore' '.ignore'
+  'vscode/settings.json' 'Library/Application Support/Code/User/settings.json'
+)
 
-if [ ! -d "$ONI_DIR" ]; then
-  echo "Creating oni config directory"
-  mkdir -p $ONI_DIR
-fi
+for file_path target_path in ${(kv)FILE_PATHS}; do
+  source_path="$DOTFILE_PATH/config/$file_path"
+  echo "Setting up $source_path"
 
-if [ ! -d "$ZSHINIT_DIR" ]; then
-  echo "Creating zshinit config directory"
-  mkdir -p $ZSHINIT_DIR
-fi
-
-for file in $files; do
-  if [ -e ~/"$file" ] && [ ! -h ~/"$file" ]; then
-    echo "Moving existing file $file to backup directory"
-    mv ~/$file ~/dotfiles_old/
+  # Check if file already exists and is not a symlink and move to dotfiles_old
+  if [ -e ~/"$target_path" ] && [ ! -h ~/"$target_path" ]; then
+    echo "Moving existing file $target_path to backup directory"
+    mv ~/$target_path ~/$BACKUP_PATH/
   fi
 
-  if [ -h ~/"$file" ]; then
-    echo "removing existing symlink ~/$file"
-    rm ~/"$file"
+  # Check if symlink exists for target file
+  if [ -h ~/"$target_path" ]; then
+    echo "Removing existing symlink..."
+    rm ~/"$target_path"
   fi
 
-  echo "Creating symlink to $DOTFILES_DIR/$file in home directory."
-  ln -s $DOTFILES_DIR/$file ~/$file
+  echo "Linking $source_path -> $HOME/$target_path"
+  ln -s $DOTFILE_PATH/config/$file_path ~/$target_path
 done
