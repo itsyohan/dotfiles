@@ -6,6 +6,9 @@ module.exports = {
   "editor.fontSize": "12px",
   "editor.fontFamily": "Menlo",
   "editor.scrollBar.visible": false,
+  "editor.quickInfo.enabled": false,
+  "editor.errors.slideOnFocus": false,
+  "editor.textMateHighlighting.enabled": false,
   "tabs.mode": "buffers",
   "workspace.defaultWorkspace": null,
   "workspace.autoDetectWorkspace": "noworkspace",
@@ -15,4 +18,12 @@ module.exports = {
   "commandline.icons": false,
   "statusbar.enabled": true,
   "sidebar.enabled": false,
+  "autoClosingPairs.enabled": false,
+
+  // Language support
+  'language.javascript.languageServer.command': 'flow-language-server',
+  'language.javascript.languageServer.arguments': ['--stdio'],
+  "language.rust.languageServer.command": "rustup",
+  "language.rust.languageServer.arguments": ["run", "stable", "rls"],
+  "language.rust.languageServer.rootFiles": ["Cargo.toml"],
 }

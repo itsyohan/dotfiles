@@ -6,6 +6,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'Yggdroot/indentLine'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-rails'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'elzr/vim-json'
@@ -55,6 +57,7 @@ set nojoinspaces           " Prevents inserting two spaces after punctuation on 
 set nostartofline          " Do not jump to first character with page commands.
 set mouse=a                " Enable mouse interaction
 set re=1                   " Use older regex engine, which has better performance
+set nowrap                 " Do not wrap text to next line
 
 if exists("g:gui_oni")
   " Turn off statusbar, because it is externalized
