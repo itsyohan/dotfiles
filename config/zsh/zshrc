@@ -23,6 +23,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Aliases
 alias vim=$EDITOR
+alias gvim="oni"
 alias zshrc="$EDITOR ~/.zshrc"
 alias typora="open -a Typora"
 alias rake="bundle exec rake"

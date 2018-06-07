@@ -18,12 +18,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'rking/ag.vim'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'rbgrouleff/bclose.vim'
-
-  if !exists("g:gui_oni")
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'altercation/vim-colors-solarized'
-  endif
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 
@@ -59,13 +56,13 @@ set mouse=a                " Enable mouse interaction
 set re=1                   " Use older regex engine, which has better performance
 set nowrap                 " Do not wrap text to next line
 
-if exists("g:gui_oni")
+"if exists("g:gui_oni")
   " Turn off statusbar, because it is externalized
   set noshowmode
   set noruler
   set laststatus=0
   set noshowcmd
-endif
+"endif
 
 au FocusGained * :checktime
 
@@ -99,9 +96,9 @@ nnoremap <leader>2 :set cursorline!<CR>
 nnoremap <leader>3 :set relativenumber!<CR>
 
 " Toggle solarized light/dark. Has to be called after plugin loaded
-if !exists("g:gui_oni")
+" if !exists("g:gui_oni")
   call togglebg#map("<leader>5")
-endif
+" endif
 
 " Go to next buffer
 :nnoremap <Tab> :bnext<CR>
