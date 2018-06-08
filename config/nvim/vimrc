@@ -55,6 +55,7 @@ set nostartofline          " Do not jump to first character with page commands.
 set mouse=a                " Enable mouse interaction
 set re=1                   " Use older regex engine, which has better performance
 set nowrap                 " Do not wrap text to next line
+set cursorline
 
 "if exists("g:gui_oni")
   " Turn off statusbar, because it is externalized
@@ -65,6 +66,18 @@ set nowrap                 " Do not wrap text to next line
 "endif
 
 au FocusGained * :checktime
+
+" Highlight current line number
+" The following is needed to work on both gui vim and terminal vim
+hi clear CursorLine
+augroup CLClear
+    autocmd! ColorScheme * hi clear CursorLine
+augroup END
+
+hi CursorLineNR term=bold cterm=NONE ctermfg=LightYellow ctermbg=NONE gui=NONE guifg=Yellow guibg=NONE
+augroup CLNRSet
+    autocmd! ColorScheme * hi CursorLineNR term=bold cterm=NONE ctermfg=LightYellow ctermbg=NONE gui=NONE guifg=Yellow guibg=NONE
+augroup END
 
 
 """ Mappings
