@@ -26,6 +26,7 @@ call plug#end()
 
 let mapleader = ";"
 
+let $VIMRC = "~/.config/nvim/init.vim" " Set environment variable for neovim config file for easy access, shorter than $MYVIMRC
 let $ONIRC = "~/.config/oni/config.js" " Set environment variable for oni config file for easy access
 
 colorscheme NeoSolarized
@@ -131,6 +132,9 @@ nmap <leader>p :pu<CR>
 
 " Toggle Nerdtree
 nmap <leader>n :NERDTreeToggle<CR>
+
+" Reveal current file in Nerdtree
+nmap <leader>m :NERDTreeFind<CR>
 
 " Map :Noh to :noh. I do this way too often
 cnoreabbrev Noh noh
