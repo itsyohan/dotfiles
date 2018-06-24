@@ -21,6 +21,7 @@ module.exports = {
   "statusbar.enabled": false,
   "sidebar.enabled": false,
   "autoClosingPairs.enabled": false,
+  "experimental.markdownPreview.enabled": true,
 
   // Language support
   'language.javascript.languageServer.command': 'flow-language-server',

@@ -189,9 +189,9 @@ let g:NERDTreeWinSize=45
 
 let g:NERDTreeAutoDeleteBuffer=1
 
-let g:NERDTreeDirArrowExpandable = '✘'  "*
+let g:NERDTreeDirArrowExpandable = '·'
 
-let g:NERDTreeDirArrowCollapsible = '✔' "|⚡
+let g:NERDTreeDirArrowCollapsible = '⌞'
 
 let g:NERDTreeWinSize=35
 
