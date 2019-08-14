@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'elzr/vim-json'
-  Plug 'w0rp/ale'
+  " Plug 'w0rp/ale'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdtree'
@@ -27,7 +27,6 @@ call plug#end()
 let mapleader = ";"
 
 let $VIMRC = "~/.config/nvim/init.vim" " Set environment variable for neovim config file for easy access, shorter than $MYVIMRC
-let $ONIRC = "~/.config/oni/config.js" " Set environment variable for oni config file for easy access
 
 colorscheme NeoSolarized
 
@@ -56,17 +55,9 @@ set nostartofline          " Do not jump to first character with page commands.
 set mouse=a                " Enable mouse interaction
 set re=1                   " Use older regex engine, which has better performance
 set nowrap                 " Do not wrap text to next line
-set cursorline             " Highlight cursorline
+" set cursorline             " Highlight cursorline
 set splitright             " Focus right pane on vertical split
 set splitbelow             " Focus down pane on horizontal split
-
-"if exists("g:gui_oni")
-  " Turn off statusbar, because it is externalized
-  set noshowmode
-  set noruler
-  set laststatus=0
-  set noshowcmd
-"endif
 
 au FocusGained * :checktime
 
@@ -78,6 +69,7 @@ augroup CLClear
 augroup END
 
 hi CursorLineNR term=bold cterm=NONE ctermfg=LightYellow ctermbg=NONE gui=NONE guifg=Yellow guibg=NONE
+" hi CursorLineNR term=bold cterm=NONE ctermfg=DarkRed ctermbg=NONE gui=NONE guifg=DarkRed guibg=NONE
 augroup CLNRSet
     autocmd! ColorScheme * hi CursorLineNR term=bold cterm=NONE ctermfg=LightYellow ctermbg=NONE gui=NONE guifg=Yellow guibg=NONE
 augroup END
@@ -112,9 +104,7 @@ nnoremap <leader>2 :set cursorline!<CR>
 nnoremap <leader>3 :set relativenumber!<CR>
 
 " Toggle solarized light/dark. Has to be called after plugin loaded
-" if !exists("g:gui_oni")
-  call togglebg#map("<leader>5")
-" endif
+call togglebg#map("<leader>5")
 
 " Go to next buffer
 :nnoremap <Tab> :bnext<CR>
@@ -131,6 +121,9 @@ nmap k gk
 
 " Paste on a new line
 nmap <leader>p :pu<CR>
+
+" Copy file path to clipboard
+nmap cp :let @*=expand("%")<CR>
 
 " Toggle Nerdtree
 nmap <leader>n :NERDTreeToggle<CR>
