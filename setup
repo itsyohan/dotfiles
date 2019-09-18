@@ -3,13 +3,11 @@
 DOTFILE_PATH=~/dotfiles
 BACKUP_PATH=~/dotfiles_old
 NVIM_PATH=~/.config/nvim
-ONI_PATH=~/.config/oni
 ZSHINIT_PATH=~/.zshinit
 
 DIRECTORIES_TO_CREATE=(
   $BACKUP_PATH
   $NVIM_PATH
-  $ONI_PATH
   $ZSHINIT_PATH
 )
 
@@ -25,10 +23,8 @@ done
 typeset -A FILE_PATHS
 FILE_PATHS=(
   'zsh/zshrc' '.zshrc'
-  'tmux/tmux.conf' '.tmux.conf'
   'vim/vimrc' '.vimrc'
   'nvim/vimrc' '.config/nvim/init.vim'
-  'oni/config.js' '.config/oni/config.js'
   'zsh/nvm_init.sh' '.zshinit/nvm_init.sh'
   'ignore' '.ignore'
 )
