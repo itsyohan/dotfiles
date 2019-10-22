@@ -10,10 +10,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mxw/vim-jsx'
   Plug 'elzr/vim-json'
   " Plug 'w0rp/ale'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug '/usr/local/opt/fzf' " fzf location via homebrew
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdtree'
-  Plug 'rking/ag.vim'
+  Plug 'mileszs/ack.vim'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'rbgrouleff/bclose.vim'
   Plug 'vim-airline/vim-airline'
@@ -249,3 +249,8 @@ let g:ale_sign_warning = '🤔'
 " \   'ruby': [],
 " \}                                         " Ignore linter errors
 "
+
+""" Ack
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+endif

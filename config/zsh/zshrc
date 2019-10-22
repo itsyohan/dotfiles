@@ -23,31 +23,20 @@ source $ZSH/oh-my-zsh.sh
 
 # Aliases
 alias vim=$EDITOR
-alias gvim="oni"
 alias zshrc="$EDITOR ~/.zshrc"
-alias typora="open -a Typora"
-alias rake="bundle exec rake"
-alias rspec="bundle exec rspec"
 alias downloads="open ~/Downloads"
-alias tmuxconf="$EDITOR ~/.tmux.conf"
 alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
-alias gvimrc="$EDITOR ~/.gvimrc"
 alias redisstart='sudo launchctl start io.redis.redis-server'
 alias redisstop='sudo launchctl stop io.redis.redis-server'
 alias rabbitstop='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist'
 alias rabbitstart='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist'
-alias ag='ag --path-to-ignore ~/.ignore'
-alias tnew="tmux new -s"
-alias tattach="tmux attach -t"
-alias tkill="tmux kill-session -t"
-alias tlist="tmux list-sessions"
-alias rails="bundle exec rails"
-alias rspec="bundle exec rspec"
-alias sidekiq="bundle exec sidekiq"
 alias nuke_merged_branches="git branch --merged | egrep -v '(^\*|master|develop|staging)' | xargs git branch -d"
 
-export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore -g ""'
+# Use ripgrep for searches
+#   --hidden: show hidden files
+#   --follow: follow symlink
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Load all startup scripts in ~/.zshinit dir
