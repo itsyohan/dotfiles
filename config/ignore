@@ -1,7 +1,7 @@
 node_modules
 flow-typed
 db/migrate
-assets
+fonts
 images
 *.png
 *.jpg
@@ -10,3 +10,4 @@ images
 *.eot
 *.ttf
 *.log
+.git
