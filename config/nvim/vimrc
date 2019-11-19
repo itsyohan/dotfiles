@@ -156,6 +156,10 @@ nnoremap <leader>t :vsplit<CR>:terminal<CR>
 " Quit terminal
 tnoremap <leader><Esc> <C-\><C-n>
 
+" Replace current word under cursor with clipboard
+"   ciw - delete curent word
+"   <C-r>0 Paste first entry in registers aka. clipboard
+map <S-p> ciw<C-r>0<ESC>
 
 """ JSX
 
@@ -250,7 +254,12 @@ let g:ale_sign_warning = '🤔'
 " \}                                         " Ignore linter errors
 "
 
-""" Ack
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if executable('rg')
   let g:ackprg = 'rg --vimgrep'
 endif
+
+" Alias
+command -nargs=+ Ac Ack <args>
