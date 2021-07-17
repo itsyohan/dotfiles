@@ -9,12 +9,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'elzr/vim-json'
-  " Plug 'w0rp/ale'
   Plug '/usr/local/opt/fzf' " fzf location via homebrew
   Plug 'junegunn/fzf.vim'
   Plug 'scrooloose/nerdtree'
   Plug 'mileszs/ack.vim'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'rbgrouleff/bclose.vim'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -218,22 +216,6 @@ let g:indentLine_color_term = 239
 let g:indentLine_char = 'ː' "┆˚:˸
 
 let g:indentLine_enabled = 1
-
-
-""" deoplete
-
-
-let g:deoplete#enable_at_startup = 1       " Init deoplete
-let g:python3_host_prog = '/usr/local/Cellar/python/3.7.0/bin/python3'
-
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()  " Tab to complete
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
 
 
 """ vim-json

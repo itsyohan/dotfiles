@@ -5,13 +5,16 @@ BACKUP_PATH=~/dotfiles_old
 NVIM_PATH=~/.config/nvim
 ZSHINIT_PATH=~/.zshinit
 
+# Directories to create in root
 DIRECTORIES_TO_CREATE=(
   $BACKUP_PATH
   $NVIM_PATH
+  $NVIM_PATH/colors
   $ZSHINIT_PATH
 )
 
-echo "Creating necessary directories if they don't exist already"
+# TODO: separate dependency list and need-to-create list and only echo when necessary
+echo "🔨 Creating necessary directories if they don't exist already"
 for dir in $DIRECTORIES_TO_CREATE; do
   if [ ! -d "$dir" ]; then
     mkdir -p $dir
@@ -19,32 +22,32 @@ for dir in $DIRECTORIES_TO_CREATE; do
   fi
 done
 
-# Map files under config directory to their symlink target path
+# Map files from config directory to their target path for symlink
 typeset -A FILE_PATHS
 FILE_PATHS=(
-  'zsh/zshrc' '.zshrc'
-  'vim/vimrc' '.vimrc'
-  'nvim/vimrc' '.config/nvim/init.vim'
-  'zsh/nvm_init.sh' '.zshinit/nvm_init.sh'
+  'zsh/.zshrc' '.zshrc'
+  'nvim/init.vim' '.config/nvim/init.vim'
+  'nvim/NeoSolarized.vim' '.config/nvim/colors/NeoSolarized.vim'
+  'zsh/nvm.sh' '.zshinit/nvm.sh'
   'ignore' '.ignore'
 )
 
+echo "⚡️ Setting up symlinks"
 for file_path target_path in ${(kv)FILE_PATHS}; do
   source_path="$DOTFILE_PATH/config/$file_path"
-  echo "Setting up $source_path"
 
   # Check if file already exists and is not a symlink and move to dotfiles_old
   if [ -e ~/"$target_path" ] && [ ! -h ~/"$target_path" ]; then
-    echo "Moving existing file $target_path to backup directory"
+    echo "🚛 Moving existing file $target_path to backup directory"
     mv ~/$target_path ~/$BACKUP_PATH/
   fi
 
   # Check if symlink exists for target file
   if [ -h ~/"$target_path" ]; then
-    echo "Removing existing symlink..."
+    echo "Removing existing symlink... $target_path"
     rm ~/"$target_path"
   fi
 
-  echo "Linking $source_path -> $HOME/$target_path"
   ln -s $DOTFILE_PATH/config/$file_path ~/$target_path
+  echo "✅ Linked $source_path => $HOME/$target_path"
 done
