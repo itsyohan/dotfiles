@@ -12,7 +12,8 @@ call plug#begin('~/.config/nvim/plugged')
   " Plug '/usr/local/opt/fzf' " fzf location via homebrew
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'scrooloose/nerdtree'
+  Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+  Plug 'kyazdani42/nvim-tree.lua'
   Plug 'mileszs/ack.vim'
   Plug 'rbgrouleff/bclose.vim'
   Plug 'vim-airline/vim-airline'
@@ -149,11 +150,11 @@ nmap <leader>p :pu<CR>
 " Copy file path to clipboard
 nmap cp :let @*=expand("%")<CR>
 
-" Toggle Nerdtree
-nmap <leader>n :NERDTreeToggle<CR>
+" Toggle NvimTree
+nmap <leader>n :NvimTreeToggle<CR>
 
-" Reveal current file in Nerdtree
-nmap <leader>m :NERDTreeFind<CR>
+" Reveal current file in NvimTree
+nmap <leader>m :NvimTreeFindFile<CR>
 
 " Map :Noh to :noh. I do this way too often
 cnoreabbrev Noh noh
@@ -187,35 +188,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 let g:jsx_ext_required = 0                              " Allow jsx in js files
 
 au BufNewFile,BufRead *.jsx set filetype=javascript.jsx " Set filetype to jsx for files with fsx extension
-
-
-""" Nerdtree
-
-
-autocmd StdinReadPre * let s:std_in=1
-
-autocmd VimEnter * wincmd p
-
-let NERDTreeHighlightCursorline=1
-
-let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg', '\.git*','\.DS_Store$']
-
-let NERDTreeShowHidden=1
-
-let g:NERDTreeWinSize=45
-
-let g:NERDTreeAutoDeleteBuffer=1
-
-let g:NERDTreeDirArrowExpandable = '·'
-
-let g:NERDTreeDirArrowCollapsible = '⌞'
-
-let g:NERDTreeWinSize=35
-
-highlight NERDTreeOpenable ctermfg=Red guifg=#D33F3F " #d7d700
-
-highlight NERDTreeClosable ctermfg=Red guifg=#D33F3F
-
 
 
 """ Airline
@@ -346,3 +318,26 @@ lua <<EOF
   --   capabilities = capabilities
   -- }
 EOF
+
+" nvim-tree
+lua <<EOF
+-- setup with some options
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+EOF
+
