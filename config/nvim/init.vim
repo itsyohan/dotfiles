@@ -12,13 +12,17 @@ call plug#begin('~/.config/nvim/plugged')
   " Plug '/usr/local/opt/fzf' " fzf location via homebrew
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
-  Plug 'kyazdani42/nvim-tree.lua'
   Plug 'mileszs/ack.vim'
   Plug 'rbgrouleff/bclose.vim'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+  " Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline-themes'
   Plug 'altercation/vim-colors-solarized'
+
+  Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'romgrk/barbar.nvim'
+
+
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
@@ -132,10 +136,10 @@ nnoremap <leader>3 :set relativenumber!<CR>
 call togglebg#map("<leader>5")
 
 " Go to next buffer
-:nnoremap <Tab> :bnext<CR>
+:nnoremap <Tab> :BufferNext<CR>
 
 " Go to previous buffer
-:nnoremap <S-TAB> :bprevious<CR>
+:nnoremap <S-TAB> :BufferPrevious<CR>
 
 " Control-P to fuzzy search
 nnoremap <C-p> :FZF<CR>
