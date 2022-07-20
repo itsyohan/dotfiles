@@ -9,14 +9,18 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'elzr/vim-json'
-  " Plug '/usr/local/opt/fzf' " fzf location via homebrew
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'mileszs/ack.vim'
   Plug 'rbgrouleff/bclose.vim'
-  " Plug 'vim-airline/vim-airline'
-  " Plug 'vim-airline/vim-airline-themes'
+
+  " Themes Plug 'jacoborus/tender.vim'
+  Plug 'sainnhe/edge'
+  Plug 'sainnhe/sonokai'
+  Plug 'mhartington/oceanic-next'
   Plug 'altercation/vim-colors-solarized'
+
+  Plug 'vim-test/vim-test'
 
   Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
   Plug 'kyazdani42/nvim-tree.lua'
@@ -33,15 +37,21 @@ call plug#begin('~/.config/nvim/plugged')
   " For vsnip users.
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
-
 call plug#end()
 
 
 let mapleader = ";"
 
-let $VIMRC = "~/.config/nvim/init.vim" " Set environment variable for neovim config file for easy access, shorter than $MYVIMRC
+let $RC = "~/.config/nvim/init.vim" " Set environment variable for neovim config file for easy access, shorter than $MYVIMRC
 
-colorscheme NeoSolarized
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+" Theme
+syntax enable
+colorscheme OceanicNext
 
 
 set smartcase              " Case insensitive search when text contains all lower case, case sensitive when they're not. Needs ignorecase to be set
@@ -66,10 +76,11 @@ set linespace=0            " Set line-spacing to minimum.
 set nojoinspaces           " Prevents inserting two spaces after punctuation on a join (J)
 set nostartofline          " Do not jump to first character with page commands.
 set mouse=a                " Enable mouse interaction
-set re=1                   " Use older regex engine, which has better performance
+set re=0                   " Use older regex engine, which has better performance
 set nowrap                 " Do not wrap text to next line
 set splitright             " Focus right pane on vertical split
 set splitbelow             " Focus down pane on horizontal split
+set guifont=BitstreamVeraSansMono\ NF:h14
 
 au FocusGained * :checktime
 
@@ -132,9 +143,6 @@ nnoremap <leader>2 :set cursorline!<CR>
 " Toggle relative line number
 nnoremap <leader>3 :set relativenumber!<CR>
 
-" Toggle solarized light/dark. Has to be called after plugin loaded
-call togglebg#map("<leader>5")
-
 " Go to next buffer
 :nnoremap <Tab> :BufferNext<CR>
 
@@ -152,13 +160,14 @@ nmap k gk
 nmap <leader>p :pu<CR>
 
 " Copy file path to clipboard
+" https://vim.fandom.com/wiki/Get_the_name_of_the_current_file
 nmap cp :let @*=expand("%")<CR>
+nmap cP :let @*=expand('%:p:h')<CR>
+
 
 " Toggle NvimTree
-nmap <leader>n :NvimTreeToggle<CR>
-
-" Reveal current file in NvimTree
-nmap <leader>m :NvimTreeFindFile<CR>
+nmap <leader>n :NvimTreeFindFileToggle<CR>
+nmap <leader>f :NvimTreeFindFile<CR>
 
 " Map :Noh to :noh. I do this way too often
 cnoreabbrev Noh noh
@@ -167,10 +176,19 @@ cnoreabbrev Noh noh
 nmap <C-w> :Bclose<CR>
 
 " Open terminal buffer to the right
-nnoremap <leader>t :vsplit<CR>:terminal<CR>
+nnoremap <leader>t :vsplit<CR>:terminal<CR>i
 
 " Quit terminal
-tnoremap <leader><Esc> <C-\><C-n>
+"   single ESC to exit terminal insert mode
+"   double ESC to close terminal buffer
+tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>:q!<CR>
+
+nmap <silent> <leader>l :TestFile<CR>
+nmap <silent> <leader>L :TestNearest<CR>
+
+nmap <leader>gb :Git blame<CR>
+
 
 " Replace current word under cursor with clipboard
 "   ciw - delete curent word
@@ -192,18 +210,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 let g:jsx_ext_required = 0                              " Allow jsx in js files
 
 au BufNewFile,BufRead *.jsx set filetype=javascript.jsx " Set filetype to jsx for files with fsx extension
-
-
-""" Airline
-
-
-let g:airline#extensions#tabline#enabled = 1                  " Enable the list of buffers Show just the filename
-
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-let g:molokai_original = 1
-
-let g:airline_section_y = toupper(fnamemodify(getcwd(), ':t'))  " Change default git branch section to show app name
 
 
 """ Indent lines
@@ -252,96 +258,9 @@ let g:neovide_cursor_vfx_mode = "railgun"
 
 set completeopt=menu,menuone,noselect
 
-lua <<EOF
-  -- Setup nvim-cmp.
-  local cmp = require'cmp'
 
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
+" vim-test
+let test#strategy = "neovim"
 
-  -- Set configuration for specific filetype.
-  cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-
-  -- Setup lspconfig.
-  -- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-  --   capabilities = capabilities
-  -- }
-EOF
-
-" nvim-tree
-lua <<EOF
--- setup with some options
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
-EOF
-
+" Load lua scripts
+lua require('init')

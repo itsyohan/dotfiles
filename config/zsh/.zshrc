@@ -14,13 +14,8 @@ export EDITOR="nvim"
 export USER=$(whoami)
 export PATH="/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH=".git/safe/../../bin:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
-export RBENV_ROOT=/usr/local/var/rbenv
+export PATH="/opt/homebrew/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-# Kubernetes
-complete -F __start_kubectl kb
-source <(kubectl completion zsh)
 
 # FZF
 # use ripgrep for searches
@@ -31,12 +26,20 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 
 # Aliases
 alias vim=$EDITOR
+alias gvim=neovide
 alias zshrc="$EDITOR ~/.zshrc"
 alias downloads="open ~/Downloads"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
-alias kb=kubectl
+alias vimrc="$EDITOR ~/.config/nvim/init.vim"
 
 # Load all startup scripts in ~/.zshinit dir
-for file in $HOME/.zshinit/*; do
-  . "$file";
-done
+# for file in $HOME/.zshinit/*; do
+#   . "$file";
+# done
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# . /opt/homebrew/opt/asdf/libexec/asdf.sh
+. $(brew --prefix asdf)/libexec/asdf.sh
