@@ -192,8 +192,8 @@ nnoremap <leader>t :vsplit<CR>:terminal<CR>i
 " Quit terminal
 "   single ESC to exit terminal insert mode
 "   double ESC to close terminal buffer
-tnoremap <Esc> <C-\><C-n>
-tnoremap <Esc><Esc> <C-\><C-n>:q!<CR>
+tnoremap <leader><Esc> <C-\><C-n>
+tnoremap <leader><Esc><Esc> <C-\><C-n>:q!<CR>
 
 nmap <silent> <leader>l :TestFile<CR>
 nmap <silent> <leader>L :TestNearest<CR>
