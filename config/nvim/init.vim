@@ -167,9 +167,15 @@ nmap <leader>p :pu<CR>
 nmap cp :let @*=expand("%")<CR>
 nmap cP :let @*=expand('%:p:h')<CR>
 
-" TODO
+" Create sub-directory inside current directory
 " Copy path to current dir and make new sub directory
-"!mkdir expand('%:p:h')
+function! SD(dir_name)
+  let path = expand('%:p:h')
+  let new_dir = path . "/" . a:dir_name
+  echo new_dir
+  call mkdir(new_dir)
+endfunction
+command! -nargs=1 SD call SD(<f-args>)
 
 
 " Map :Noh to :noh. I do this way too often
