@@ -15,6 +15,7 @@ export USER=$(whoami)
 export PATH="/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH=".git/safe/../../bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # FZF
@@ -26,20 +27,16 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 
 # Aliases
 alias vim=$EDITOR
-alias gvim=neovide
 alias zshrc="$EDITOR ~/.zshrc"
 alias downloads="open ~/Downloads"
-alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
-alias vimrc="$EDITOR ~/.config/nvim/init.vim"
+alias vimrc="$EDITOR ~/.config/nvim/lua/user"
+alias nvimrc=vimrc
+alias gt="git-town"
 
 # Load all startup scripts in ~/.zshinit dir
 # for file in $HOME/.zshinit/*; do
 #   . "$file";
 # done
-
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # . /opt/homebrew/opt/asdf/libexec/asdf.sh
 . $(brew --prefix asdf)/libexec/asdf.sh
