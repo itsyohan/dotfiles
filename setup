@@ -2,13 +2,11 @@
 
 DOTFILE_PATH=~/dotfiles
 BACKUP_PATH=~/dotfiles_old
-NVIM_PATH=~/.config/nvim
 ZSHINIT_PATH=~/.zshinit
 
 # Directories to create in root
 DIRECTORIES_TO_CREATE=(
   $BACKUP_PATH
-  $NVIM_PATH
   $ZSHINIT_PATH
 )
 
