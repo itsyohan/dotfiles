@@ -1,18 +1,6 @@
-# 🛠 Setup
-
-- [ ] Install homebrew
-- [ ] Install apps via brewfile
-    - asdf
-    - neovim
-    - 1password
-    - chrome
-    - xcode
-    - ruby
-    - docker
-- [ ] git
-
+# Installation
 
 ```shell
-git clone git@github.com:ayohan/dotfiles.git
-./dotfiles/setup
+git clone git@github.com:ayohan/dotfiles.git ~/dotfiles
+. ~/dotfiles/bin/setup
 ```
