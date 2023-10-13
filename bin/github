@@ -1,15 +1,12 @@
 #!/bin/sh
 
-# Source:
+# Modified from original source:
 # https://github.com/hoverinc/engineering/blob/main/script/bootstrap
 
 # Exit script if any commands return errors (if they exit with non-zero)
 set -e
 
-# Work from the user's `Downloads` directory
-cd "$HOME/Downloads"
-
-default_rsa_path=~/.ssh/id_rsa
+default_rsa_path=~/.ssh/id_ed25519
 
 # Ask the user where they want their RSA key stored
 read -p "==> Where you would like your rsa_key stored [$default_rsa_path]: " rsa_path
@@ -34,9 +31,9 @@ else
     exit 1
   fi
 
-  # From: https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+  # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
   echo "==> Generating SSH key for $github_email …"
-  ssh-keygen -t rsa -b 4096 -C "$github_email"
+  ssh-keygen -t ed25519 -C "$github_email"
   echo
 
   echo "==> Starting ssh-agent in the background…"
@@ -75,4 +72,3 @@ fi
 
 echo "==> Copying your public SSH key to clipboard…"
 pbcopy < $rsa_path
-echo

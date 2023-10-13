@@ -1,58 +1,57 @@
 #!/bin/sh
 
-sh ~/dotfiles/bin/github
-echo pwd
-
-# Download strap.sh and run it
-echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
-curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh
-echo
-
-echo "==> Strapping your Mac…"
-sh strap.sh
-echo
-
-# Delete strap.sh
-echo "==> Deleting strap.sh script…"
-rm strap.sh
-echo
+# TODO
+# ruby via asdf
+# homebrew via strap
+# iterm?
+# zsh strap
 
 DOTFILE_PATH=~/dotfiles
-BACKUP_PATH=~/dotfiles_old
-ZSHINIT_PATH=~/.zshinit
 
-# Directories to create in root
-DIRECTORIES_TO_CREATE=(
-  $BACKUP_PATH
-  $ZSHINIT_PATH
-)
-
-# TODO: separate dependency list and need-to-create list and only echo when necessary
-echo "🔨 Creating necessary directories if they don't exist already"
-for dir in $DIRECTORIES_TO_CREATE; do
-  if [ ! -d "$dir" ]; then
-    mkdir -p $dir
-    echo "Created $dir"
-  fi
-done
-
-# Map files from config directory to their target path for symlink
-typeset -A FILE_PATHS
 FILE_PATHS=(
   '.zshrc'
   '.ignore'
+  '.tool-versions'
 )
 
-echo "⚡️ Setting up symlinks"
-for file_path in ${(kv)FILE_PATHS}; do
+echo "==> Creating symlinks"
+for file_path in "${FILE_PATHS[@]}"; do
   source_path="$DOTFILE_PATH/config/$file_path"
 
   # Check if symlink exists for target file
   if [ -h ~/"$file_path" ]; then
-    echo "Removing existing symlink... $file_path"
+    echo "==> Removing existing symlink... $file_path"
     rm ~/"$file_path"
   fi
 
-  ln -s $DOTFILE_PATH/config/$file_path ~/$file_path
-  echo "✅ Linked $source_path => $HOME/$file_path"
+  if [ -f ~/"$file_path" ]; then
+    echo "==> Skipping $file_path because file already exists"
+  else
+    ln -s $source_path ~/$file_path
+    if [ $? -eq 0 ]; then
+        echo "==> Linked $source_path => $HOME/$file_path"
+    fi
+  fi
 done
+echo "==> ✅ Done"
+echo
+
+# echo "==> Setting up SSH for Github"
+# sh $DOTFILE_PATH/bin/github
+# echo "==> ✅ Done"
+# echo
+#
+# # Download strap.sh and run it
+# echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
+# curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh
+# echo
+#
+# echo "==> Strapping your Mac…"
+# sh strap.sh
+# echo
+#
+# # Delete strap.sh
+# echo "==> Deleting strap.sh script…"
+# rm strap.sh
+# echo
+
