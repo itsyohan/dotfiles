@@ -1,4 +1,21 @@
-#!/bin/zsh
+#!/bin/sh
+
+sh ~/dotfiles/bin/github
+echo pwd
+
+# Download strap.sh and run it
+echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
+curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh
+echo
+
+echo "==> Strapping your Mac…"
+sh strap.sh
+echo
+
+# Delete strap.sh
+echo "==> Deleting strap.sh script…"
+rm strap.sh
+echo
 
 DOTFILE_PATH=~/dotfiles
 BACKUP_PATH=~/dotfiles_old
@@ -22,26 +39,20 @@ done
 # Map files from config directory to their target path for symlink
 typeset -A FILE_PATHS
 FILE_PATHS=(
-  'zsh/zshrc' '.zshrc'
-  'ignore' '.ignore'
+  '.zshrc'
+  '.ignore'
 )
 
 echo "⚡️ Setting up symlinks"
-for file_path target_path in ${(kv)FILE_PATHS}; do
+for file_path in ${(kv)FILE_PATHS}; do
   source_path="$DOTFILE_PATH/config/$file_path"
 
-  # Check if file already exists and is not a symlink and move to dotfiles_old
-  if [ -e ~/"$target_path" ] && [ ! -h ~/"$target_path" ]; then
-    echo "🚛 Moving existing file $target_path to backup directory"
-    mv ~/$target_path ~/$BACKUP_PATH/
-  fi
-
   # Check if symlink exists for target file
-  if [ -h ~/"$target_path" ]; then
-    echo "Removing existing symlink... $target_path"
-    rm ~/"$target_path"
+  if [ -h ~/"$file_path" ]; then
+    echo "Removing existing symlink... $file_path"
+    rm ~/"$file_path"
   fi
 
-  ln -s $DOTFILE_PATH/config/$file_path ~/$target_path
-  echo "✅ Linked $source_path => $HOME/$target_path"
+  ln -s $DOTFILE_PATH/config/$file_path ~/$file_path
+  echo "✅ Linked $source_path => $HOME/$file_path"
 done
