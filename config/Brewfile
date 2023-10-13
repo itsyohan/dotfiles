@@ -1,0 +1,13 @@
+# https://github.com/Homebrew/homebrew-bundle
+
+brew "zsh"
+brew "font-meslo-lg-nerd-font"
+brew "neovim"
+
+cask "google-chrome"
+cask "iterm2"
+cask "karabiner-elements"
+cask "1password"
+cask "bettertouchtool"
+
+mas "Bear Markdown Notes", id: 1091189122

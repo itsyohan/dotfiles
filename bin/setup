@@ -1,11 +1,5 @@
 #!/bin/sh
 
-# TODO
-# ruby via asdf
-# homebrew via strap
-# iterm?
-# zsh strap
-
 DOTFILE_PATH=~/dotfiles
 
 FILE_PATHS=(
@@ -36,22 +30,31 @@ done
 echo "==> ✅ Done"
 echo
 
-# echo "==> Setting up SSH for Github"
-# sh $DOTFILE_PATH/bin/github
-# echo "==> ✅ Done"
-# echo
-#
-# # Download strap.sh and run it
-# echo "==> Downloading strap.sh script from github.com/MikeMcQuaid/strap…"
-# curl https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh -o strap.sh
-# echo
-#
-# echo "==> Strapping your Mac…"
-# sh strap.sh
-# echo
-#
-# # Delete strap.sh
-# echo "==> Deleting strap.sh script…"
-# rm strap.sh
-# echo
+echo "==> Setting up SSH for Github"
+sh $DOTFILE_PATH/bin/github
+echo "==> ✅ Done"
+echo
 
+echo "==> Installing strap script from https://github.com/MikeMcQuaid/strap…"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh)"
+echo "==> ✅ Done"
+echo
+
+echo "==> Installing ohmyzsh…"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo "==> ✅ Done"
+echo
+
+echo "==> Installing runtimes with asdf…"
+asdf install
+echo "==> ✅ Done"
+echo
+
+# Create .config directory if it doesn't exist
+if [ ! -d "~/.config" ]; then
+  # -p flag creates parent directories if they don't exist
+  # don't really need here but good practice
+  mkdir -p ~/.config
+fi
+
+# set up vim configs
