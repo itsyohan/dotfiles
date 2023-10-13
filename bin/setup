@@ -14,7 +14,7 @@ for file_path in "${FILE_PATHS[@]}"; do
 
   # Check if symlink exists for target file
   if [ -h ~/"$file_path" ]; then
-    echo "==> Removing existing symlink... $file_path"
+    echo "==> Removing existing symlink: $file_path"
     rm ~/"$file_path"
   fi
 
@@ -27,27 +27,22 @@ for file_path in "${FILE_PATHS[@]}"; do
     fi
   fi
 done
-echo "==> ✅ Done"
 echo
 
 echo "==> Setting up SSH for Github"
-sh $DOTFILE_PATH/bin/github
-echo "==> ✅ Done"
+sh $DOTFILE_PATH/bin/github.sh
 echo
 
-echo "==> Installing strap script from https://github.com/MikeMcQuaid/strap…"
+echo "==> Installing strap script from https://github.com/MikeMcQuaid/strap"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/MikeMcQuaid/strap/master/bin/strap.sh)"
-echo "==> ✅ Done"
 echo
 
-echo "==> Installing ohmyzsh…"
+echo "==> Installing ohmyzsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-echo "==> ✅ Done"
 echo
 
-echo "==> Installing runtimes with asdf…"
+echo "==> Installing runtimes with asdf"
 asdf install
-echo "==> ✅ Done"
 echo
 
 # Create .config directory if it doesn't exist
@@ -57,4 +52,5 @@ if [ ! -d "~/.config" ]; then
   mkdir -p ~/.config
 fi
 
-# set up vim configs
+echo "==> Settings up neovim configs"
+sh $DOTFILE_PATH/bin/nvim.sh
