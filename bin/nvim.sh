@@ -15,4 +15,4 @@ rm -rf ~/.config/nvim
 rm -rf ~/.local/share/nvim
 
 git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-git clone https://github.com/itsyohan/AstroNvimConfig ~/.config/nvim/lua/user
+git clone git@github.com:itsyohan/AstroNvimConfig.git ~/.config/nvim/lua/user

@@ -6,6 +6,7 @@ FILE_PATHS=(
   '.zshrc'
   '.ignore'
   '.tool-versions'
+  '.Brewfile'
 )
 
 echo "==> Creating symlinks"
@@ -42,6 +43,15 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo
 
 echo "==> Installing runtimes with asdf"
+# install plugins
+while IFS= read -r line; do
+    # Extract the first word
+    package=$(echo "$line" | awk '{print $1}')
+    # Run the asdf command with the extracted word
+    asdf plugin add "$package"
+done < ".tool-versions"
+
+# install runtimes
 asdf install
 echo
 
